@@ -1,0 +1,58 @@
+#contenedor {
+    position: relative;
+    width: 120px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Martillo */
+#martillo {
+    position: absolute;
+    top: 0;
+
+    transform-origin: 60px 20px; /* Punto de pivote en la cabeza del martillo */
+    animation: animacion_martillo 1.5s infinite ease-in-out;
+}
+
+@keyframes animacion_martillo {
+    0% {
+      transform: rotate(0deg);
+      top:0px
+    }
+    42% {
+      transform: rotate(90deg);
+      top:57px
+    }
+    60% {
+      transform: rotate(90deg);
+      top:57px
+    }
+    100% {
+      transform: rotate(0deg);
+      top:0px
+    }
+  }
+
+/* Clavo */
+#clavo {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: animacion_clavo 1.5s infinite ease-in-out;
+    animation-delay: 0.7s; /* Se sincroniza con el martillo */
+}
+
+@keyframes animacion_clavo {
+    0%, 40% {
+        top: 150px;
+    }
+    50% {
+        top: 155px; /* Se hunde un poco */
+    }
+    60%, 100% {
+        top: 150px;
+    }
+}

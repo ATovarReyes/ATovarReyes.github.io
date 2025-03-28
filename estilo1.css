@@ -1,0 +1,222 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Ajustar header */
+header {
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    color: white;
+    padding: 10px;
+}
+
+
+/* Ajustar navbar */
+.navbar {
+    padding: 10px;
+}
+
+.navbar-nav {
+    text-align: center;
+}
+
+.navbar-nav .nav-item {
+    padding: 5px 10px;
+}
+
+/* Ajustar imágenes del carrusel */
+.carousel-item img {
+    object-fit: cover;
+    height: auto;
+    max-height: 500px;
+}
+
+/* Ajustar la sección principal */
+section.container {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Hacer imágenes responsivas */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+    }
+    .carousel-item img {
+        max-height: 300px;
+    }
+}
+
+.nav-link {
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+    color: #ff7e5f;
+    font-weight: bold;
+}
+
+.carrusel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    max-width: 800px;
+    margin: auto;
+}
+
+.carrusel {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+}
+
+.slide {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.slide.active {
+    display: flex;
+}
+
+.carrusel-container button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+}
+
+#prev {
+    left: 10px;
+}
+
+#next {
+    right: 10px;
+}
+
+
+.img-thumbnail {
+    width: 100%; 
+    height: 300px; 
+    object-fit: cover; 
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.descripcion {
+    max-width: 90%;
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 10px;
+}
+
+
+/* Estilos generales */
+.chat-container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Estilos del input */
+#pregunta {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+/* Estilos del botón */
+#btnPreguntar {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#btnPreguntar:hover {
+    background: #0056b3;
+}
+
+/* Estilos del párrafo de respuesta */
+#respuesta {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Diseño responsivo */
+@media (max-width: 600px) {
+    .chat-container {
+        width: 90%;
+    }
+}
+
+#editable{
+    overflow:auto;
+  }
+
+
+
+footer {
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+.editor-container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+.CodeMirror {
+    border: 1px solid #ccc;
+    height: 300px;
+}
+#errores {
+    margin-top: 10px;
+    color: red;
+}
+
+

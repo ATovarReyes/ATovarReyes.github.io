@@ -1,0 +1,124 @@
+document.addEventListener("DOMContentLoaded", function () {
+    let currentIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+    const totalSlides = slides.length;
+    const intervalTime = 5000; // Cambia cada 5 segundos
+    let autoSlide;
+
+    function showSlide(index) {
+        slides.forEach(slide => slide.classList.remove("active"));
+        slides[index].classList.add("active");
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        showSlide(currentIndex);
+    }
+
+    function startAutoSlide() {
+        autoSlide = setInterval(nextSlide, intervalTime);
+    }
+
+    function stopAutoSlide() {
+        clearInterval(autoSlide);
+    }
+
+    // Iniciar el carrusel automáticamente
+    startAutoSlide();
+
+    // Botones de navegación manual
+    document.getElementById("prev").addEventListener("click", function () {
+        stopAutoSlide();
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        showSlide(currentIndex);
+        startAutoSlide(); // Reiniciar el intervalo
+    });
+
+    document.getElementById("next").addEventListener("click", function () {
+        stopAutoSlide();
+        nextSlide();
+        startAutoSlide(); // Reiniciar el intervalo
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("btnPreguntar").addEventListener("click", preguntarIA);
+});
+
+async function preguntarIA() {
+    const pregunta = document.getElementById("pregunta").value;
+    const respuestaElemento = document.getElementById("respuesta");
+
+    if (!pregunta) {
+        alert("Por favor, escribe una pregunta.");
+        return;
+    }
+
+    respuestaElemento.innerText = "Pensando...";
+
+    // 🔹 Reemplaza con tu clave API de Cohere
+    const apiKey = "zrxqFq3urSQGPCWy9sZsLgy2DnlnPWPZz5QLq4td";  
+    const url = "https://api.cohere.ai/v1/chat";
+
+    const data = {
+        model: "command-r", // Modelo de Cohere (puedes probar otros)
+        message: pregunta,  // Mensaje del usuario
+        temperature: 0.7,   // Controla la creatividad de la respuesta
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+        console.log("Respuesta de Cohere:", result);
+
+        if (result.text) {
+            respuestaElemento.innerText = result.text;
+        } else {
+            respuestaElemento.innerText = "No se recibió una respuesta válida.";
+        }
+    } catch (error) {
+        respuestaElemento.innerText = "Error al obtener la respuesta.";
+        console.error("Error:", error);
+    }
+}
+
+/* verificador de codigo */
+window.onload = function() {
+    var editor = CodeMirror.fromTextArea(document.getElementById("codigo"), {
+        lineNumbers: true,
+        mode: "javascript", // Se puede cambiar según el lenguaje
+        theme: "default"
+    });
+    
+    window.analizarCodigo = function() {
+        var codigo = editor.getValue();
+        var errores = [];
+
+        // Detectar si falta "inicio" o "fin"
+        if (!codigo.includes("inicio")) {
+            errores.push("Error: Falta la palabra clave 'inicio'.");
+        }
+        if (!codigo.includes("fin")) {
+            errores.push("Error: Falta la palabra clave 'fin'.");
+        }
+
+        // Buscar variables sin declaración (Ejemplo básico)
+        var lineas = codigo.split("\n");
+        lineas.forEach((linea, index) => {
+            if (linea.includes("=") && !linea.includes("var ")) {
+                errores.push(`Error en línea ${index + 1}: Variable no declarada correctamente.`);
+            }
+        });
+
+        // Mostrar errores
+        document.getElementById("errores").innerHTML = errores.length > 0 ? errores.join("<br>") : "✅ Código sin errores.";
+    };
+};
